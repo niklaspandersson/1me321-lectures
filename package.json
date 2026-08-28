@@ -1,0 +1,16 @@
+{
+  "name": "1me321-video-lectures",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build F1a.md",
+    "dev": "slidev --open F1a.md",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.19.1",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "vue": "^3.5.33"
+  }
+}
