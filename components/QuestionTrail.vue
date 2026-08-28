@@ -1,6 +1,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  /** Vilken av filmens fyra frågor vi arbetar med just nu (1–4). */
+  /** Vilken av filmens två frågor vi arbetar med just nu (1–2). */
   active?: number
   /** Visa som stor punktlista i stället för kompakt rad. */
   list?: boolean
@@ -13,10 +13,8 @@ withDefaults(defineProps<{
 })
 
 const questions = [
-  { short: 'Vad skriver jag?', long: 'Vad är det jag egentligen skriver in?' },
-  { short: 'Vem svarar?', long: 'Vem är det som svarar i andra änden?' },
-  { short: 'Var finns den?', long: 'Var finns den som svarar?' },
-  { short: 'Hur hittar vi dit?', long: 'Hur hittar webbläsaren fram?' },
+  { short: 'Varifrån?', long: 'Varifrån kommer sidan?' },
+  { short: 'Hur når den fram?', long: 'Hur tar den sig till min webbläsare?' },
 ]
 </script>
 
@@ -28,7 +26,7 @@ const questions = [
     </li>
   </ol>
 
-  <nav v-else class="trail" aria-label="Filmens fyra frågor">
+  <nav v-else class="trail" aria-label="Filmens två frågor">
     <span
       v-for="(q, i) in questions"
       :key="q.short"
