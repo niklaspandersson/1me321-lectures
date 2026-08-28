@@ -59,9 +59,12 @@ Vi ska packa upp det steg för steg. Och som du snart ska se räcker det med tv�
 ---
 layout: two-cols
 layoutClass: gap-8
+clicks: 2
 ---
 
 # Om några veckor sitter du på andra sidan
+
+<div v-click="1">
 
 Det som visas i fönstret är i grunden text som någon har skrivit:
 
@@ -76,13 +79,15 @@ I den här kursen är det du som skriver den texten.
    som du själv har skrivit.</p>
 ```
 
+</div>
+
 ::right::
 
-<div class="mt-16">
+<div v-click="2" class="mt-16">
   <BrowserFrame url="https://min-sida.se" mock="simple" height="9rem" small />
 </div>
 
-<div class="mt-6 text-sm text-gray-500 text-center">
+<div v-click="2" class="mt-6 text-sm text-gray-500 text-center">
 Från den som skriver i adressfältet<br />till den som svarar.
 </div>
 
@@ -96,14 +101,19 @@ Och då behöver du veta två saker: varifrån ett sådant dokument kommer, och 
 
 ---
 layout: center
+clicks: 1
 ---
 
 # Två frågor till den tomma webbläsaren
+
+<div v-click="1">
 
 <QuestionTrail list />
 
 <div class="mt-10 text-sm text-gray-500 text-center">
 Svaren på de här två frågorna är den här filmen.
+</div>
+
 </div>
 
 <!--
@@ -127,9 +137,9 @@ class: flex flex-col justify-center
 
 # Vem är det som svarar?
 
-<ClientServerDiagram focus="roles" />
+<ClientServerDiagram v-click="1" focus="roles" />
 
-<div class="text-center text-gray-500 text-sm">
+<div v-click="2" class="text-center text-gray-500 text-sm">
 Klient och server är <strong>roller i ett samtal</strong> – inte två sorters maskiner.
 </div>
 
@@ -144,7 +154,7 @@ Det viktiga just nu är rollerna. En frågar, en svarar.
 -->
 
 ---
-clicks: 1
+clicks: 2
 class: flex flex-col justify-center
 ---
 
@@ -152,9 +162,9 @@ class: flex flex-col justify-center
 
 # Webben är frågor och svar
 
-<ClientServerDiagram focus="exchange" />
+<ClientServerDiagram v-click="1" focus="exchange" />
 
-<div v-click>
+<div v-click="2">
 
 Formatet för frågorna och svaren heter **HTTP** – och en enda sida blir oftast **många** frågor: HTML-dokumentet pekar vidare på CSS, bilder och typsnitt.
 
@@ -171,6 +181,7 @@ En viktig detalj: en enda sida är sällan en enda fråga. Dokumentet som kommer
 -->
 
 ---
+clicks: 2
 class: flex flex-col justify-center
 ---
 
@@ -178,9 +189,9 @@ class: flex flex-col justify-center
 
 # Var finns servern?
 
-<NetworkOfNetworks focus="overview" />
+<NetworkOfNetworks v-click="1" focus="overview" />
 
-<div class="text-center">
+<div v-click="2" class="text-center">
 <strong>Internet</strong> = <em>internetworking</em>: nätverk som är sammankopplade med andra nätverk.
 Det finns ingen central Internet-dator.
 </div>
@@ -194,6 +205,7 @@ Lägg märke till att det inte finns någon central Internet-dator på bilden, o
 -->
 
 ---
+clicks: 2
 class: flex flex-col justify-center
 ---
 
@@ -201,9 +213,9 @@ class: flex flex-col justify-center
 
 # Ut ur ditt eget nätverk
 
-<LocalNetwork focus="gateway" />
+<LocalNetwork v-click="1" focus="gateway" />
 
-<div class="text-sm text-gray-500">
+<div v-click="2" class="text-sm text-gray-500">
 <strong>LAN</strong> lokalt nätverk · <strong>router</strong> kopplar ihop nätverk · <strong>gateway</strong> vägen ut · <strong>WAN</strong> nätverk över större områden
 <br />
 Begrepp att känna igen – inte att memorera nu.
@@ -220,14 +232,15 @@ De här orden behöver du bara känna igen. Poängen är enkel: din data måste 
 -->
 
 ---
+clicks: 2
 class: flex flex-col justify-center
 ---
 
 # Varför ser det ut så här?
 
-<Timeline />
+<Timeline v-click="1" />
 
-<div class="mt-6 text-center">
+<div v-click="2" class="mt-6 text-center">
 Man byggde inte om alla nätverk till ett enda. Man kom överens om <strong>gemensamma protokoll</strong> så att olika nätverk kunde prata med varandra.
 </div>
 
@@ -244,10 +257,13 @@ Och först kring 1990 kom webben, när Tim Berners-Lee byggde ett enklare sätt 
 -->
 
 ---
+clicks: 2
 class: flex flex-col justify-center
 ---
 
 # Därför är webben inte samma sak som Internet
+
+<div v-click="1">
 
 | Internet | Webben |
 |---|---|
@@ -255,7 +271,9 @@ class: flex flex-col justify-center
 | transporterar alla sorters data | webbadresser, HTTP, HTML och CSS |
 | fanns långt före webben | tillkom kring 1990 |
 
-<div class="mt-6 text-center text-lg">
+</div>
+
+<div v-click="2" class="mt-6 text-center text-lg">
 Internet är <strong>vägnätet</strong>. Webben är <strong>en av verksamheterna</strong> som kör på det.
 </div>
 
@@ -270,6 +288,7 @@ För kursen betyder det: HTML, CSS och HTTP hör till webben. IP och nätverken 
 -->
 
 ---
+clicks: 2
 class: flex flex-col justify-center
 ---
 
@@ -277,9 +296,13 @@ class: flex flex-col justify-center
 
 # Vi vet varifrån sidan kommer
 
+<div v-click="1">
+
 Ett **webbserverprogram**, som svarar på begäranden – och som körs på en dator någonstans ute i **nätverket av nätverk** som är Internet.
 
-<div class="mt-6 text-center text-lg">
+</div>
+
+<div v-click="2" class="mt-6 text-center text-lg">
 Men hur skickar vi ens ett meddelande dit? Det är nästa fråga.
 </div>
 
@@ -292,16 +315,16 @@ Kvar är den andra frågan: hur tar sig frågan dit, och svaret tillbaka? Det ä
 ---
 layout: two-cols
 layoutClass: gap-8
-clicks: 2
+clicks: 3
 ---
 
 <QuestionTrail :active="2" />
 
 # Vad var det du skrev, egentligen?
 
-<AddressAnatomy :highlight="$clicks >= 1 ? 'domain' : ''" />
+<AddressAnatomy v-click="1" :highlight="$clicks >= 2 ? 'domain' : ''" />
 
-<div v-click="2" class="text-lg">
+<div v-click="3" class="text-lg">
 
 Domännamnet är ett **namn** – inte en plats.
 
@@ -309,7 +332,7 @@ Domännamnet är ett **namn** – inte en plats.
 
 ::right::
 
-<div class="mt-2 text-sm text-gray-500">
+<div v-click="1" class="mt-2 text-sm text-gray-500">
 
 - **https://** – protokoll, hur vi frågar (film 3)
 - **www.lnu.se** – domännamn, vem vi frågar
@@ -326,12 +349,15 @@ Lägg märke till en sak: domännamnet är ett namn, inte en plats. Det står in
 -->
 
 ---
+clicks: 1
 class: flex flex-col justify-center
 ---
 
 <QuestionTrail :active="2" />
 
 # Hur hittar vi rätt dator?
+
+<div v-click="1">
 
 Nätverket bryr sig inte om namn. Varje ansluten dator behöver en adress i nätverket – en **IP-adress**:
 
@@ -342,6 +368,8 @@ Nätverket bryr sig inte om namn. Varje ansluten dator behöver en adress i nät
 - adressen pekar ut exakt vilken dator på Internet som är mottagaren
 - adressen hör till en anslutning, inte till en viss maskin för alltid
 - exemplet ovan är reserverat för dokumentation och pekar inte på någon riktig server
+
+</div>
 
 <!--
 Nätverket däremot bryr sig inte om namn. Varje ansluten dator behöver en adress, och den kallas IP-adress. Den på bilden är en IPv4-adress. Det finns också IPv6-adresser, som ser annorlunda ut och ger plats för många fler. Formaten behöver du inte lära dig nu.
@@ -354,7 +382,7 @@ Men titta tillbaka på adressen vi skrev. Det stod inget nummer där. Bara ett n
 -->
 
 ---
-clicks: 1
+clicks: 2
 class: flex flex-col justify-center
 ---
 
@@ -362,9 +390,9 @@ class: flex flex-col justify-center
 
 # Men jag skrev ju inget nummer
 
-<DnsLookup :answered="$clicks >= 1" />
+<DnsLookup v-click="1" :answered="$clicks >= 2" />
 
-<div class="text-center">
+<div v-click="2" class="text-center">
 <strong>DNS</strong> – Domain Name System – är uppslagningen som webbläsaren gör <em>innan</em> den skickar något.
 </div>
 
@@ -382,20 +410,20 @@ Nu har vi allt som behövs för att svara på hur frågan hittar fram.
 
 ---
 layout: center
-clicks: 4
+clicks: 5
 ---
 
 <QuestionTrail :active="2" />
 
 # Så tar sig frågan till servern
 
-<NetworkOfNetworks focus="path" />
+<NetworkOfNetworks v-click="1" focus="path" />
 
 <div class="max-w-2xl mx-auto mt-6 space-y-2 text-left">
-  <div v-click="1">1. Webbläsaren slår upp <code>www.lnu.se</code> hos <strong>DNS</strong> och får tillbaka en <strong>IP-adress</strong>.</div>
-  <div v-click="2">2. Webbläsaren skickar ett meddelande – en <strong>begäran</strong> – till den adressen.</div>
-  <div v-click="3">3. Meddelandet skickas från min dator, via Internet, till servern.</div>
-  <div v-click="4">4. <strong>Servern svarar.</strong></div>
+  <div v-click="2">1. Webbläsaren slår upp <code>www.lnu.se</code> hos <strong>DNS</strong> och får tillbaka en <strong>IP-adress</strong>.</div>
+  <div v-click="3">2. Webbläsaren skickar ett meddelande – en <strong>begäran</strong> – till den adressen.</div>
+  <div v-click="4">3. Meddelandet skickas från min dator, via Internet, till servern.</div>
+  <div v-click="5">4. <strong>Servern svarar.</strong></div>
 </div>
 
 <!--
@@ -414,13 +442,14 @@ Det är ett bra ställe att landa den här filmen på. Precis hur meddelandet hi
 
 ---
 layout: center
+clicks: 1
 ---
 
 <QuestionTrail done />
 
 # Tillbaka till den tomma webbläsaren
 
-<div class="grid grid-cols-2 gap-x-8 gap-y-4 max-w-3xl mx-auto mt-6 text-left">
+<div v-click="1" class="grid grid-cols-2 gap-x-8 gap-y-4 max-w-3xl mx-auto mt-6 text-left">
   <div class="text-gray-500">Varifrån kommer sidan?</div>
   <div>Ett <strong>webbserverprogram</strong>, någonstans i <strong>nätverket av nätverk</strong></div>
   <div class="text-gray-500">Hur tar den sig till min webbläsare?</div>
@@ -440,6 +469,7 @@ Det är där vi står nu. Webbläsaren vet vilken server den pratar med, och fr�
 ---
 layout: center
 class: text-center
+clicks: 1
 ---
 
 <BrowserFrame url="https://www.lnu.se" height="6.5rem" caption="frågan hittade fram och servern svarade — men vi vet inte hur, i detalj" small />
@@ -448,7 +478,7 @@ class: text-center
 Hur säkerställs att meddelandet verkligen kommer helt fram?
 </div>
 
-<div class="mt-6 text-gray-500">
+<div v-click="1" class="mt-6 text-gray-500">
 <strong>Film 2:</strong> TCP och IP – hur data delas upp, skickas och sätts ihop igen
 <br />
 <strong>Film 3:</strong> HTTP, HTML och CSS – vad som faktiskt står i begäran och svaret
