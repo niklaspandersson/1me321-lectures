@@ -339,14 +339,14 @@ Nätverket bryr sig inte om namn. Varje ansluten dator behöver en adress i nät
 203.0.113.42
 ```
 
-- routrarna längs vägen använder adressen för att skicka data vidare mot rätt nätverk
+- adressen pekar ut exakt vilken dator på Internet som är mottagaren
 - adressen hör till en anslutning, inte till en viss maskin för alltid
 - exemplet ovan är reserverat för dokumentation och pekar inte på någon riktig server
 
 <!--
 Nätverket däremot bryr sig inte om namn. Varje ansluten dator behöver en adress, och den kallas IP-adress. Den på bilden är en IPv4-adress. Det finns också IPv6-adresser, som ser annorlunda ut och ger plats för många fler. Formaten behöver du inte lära dig nu.
 
-Funktionen är det viktiga. När data skickas iväg står mottagarens IP-adress på den, och varje router på vägen använder adressen för att skicka den ett steg närmare rätt nätverk.
+Funktionen är det viktiga. När data skickas iväg står mottagarens IP-adress på den, så att den kan hitta fram till exakt rätt dator. Precis hur den hittar dit genom alla nätverk är nästa films fråga.
 
 Lägg också märke till att en IP-adress inte är ett permanent namn på en fysisk maskin. Flyttar en webbplats till en annan server får den en annan IP-adress.
 
@@ -394,7 +394,7 @@ clicks: 4
 <div class="max-w-2xl mx-auto mt-6 space-y-2 text-left">
   <div v-click="1">1. Webbläsaren slår upp <code>www.lnu.se</code> hos <strong>DNS</strong> och får tillbaka en <strong>IP-adress</strong>.</div>
   <div v-click="2">2. Webbläsaren skickar ett meddelande – en <strong>begäran</strong> – till den adressen.</div>
-  <div v-click="3">3. Meddelandet lämnar mitt nätverk, passerar <strong>routrar</strong> på Internet, och når fram till serverns nätverk – och till slut servern.</div>
+  <div v-click="3">3. Meddelandet skickas från min dator, via Internet, till servern.</div>
   <div v-click="4">4. <strong>Servern svarar.</strong></div>
 </div>
 
@@ -405,11 +405,11 @@ Webbläsaren slår upp domännamnet i URLen mot DNS och får tillbaka en IP-adre
 
 Den skickar sedan ett meddelande, en begäran, till servern på den adressen.
 
-Meddelandet levereras över Internet: det lämnar mitt nätverk, passerar en rad routrar på vägen, når fram till serverns nätverk och till slut servern själv.
+Meddelandet skickas från min dator, via Internet, till servern.
 
 Och servern svarar.
 
-Det är ett bra ställe att landa den här filmen på. Precis hur den kommunikationen går till i detalj, hur meddelandet delas upp, skickas och sätts ihop igen utan att gå förlorat, är nästa films fråga.
+Det är ett bra ställe att landa den här filmen på. Precis hur meddelandet hittar rätt väg genom alla de där nätverken, delas upp och sätts ihop igen utan att gå förlorat, är nästa films fråga.
 -->
 
 ---
@@ -424,7 +424,7 @@ layout: center
   <div class="text-gray-500">Varifrån kommer sidan?</div>
   <div>Ett <strong>webbserverprogram</strong>, någonstans i <strong>nätverket av nätverk</strong></div>
   <div class="text-gray-500">Hur tar den sig till min webbläsare?</div>
-  <div><strong>DNS</strong> slår upp namnet till en <strong>IP-adress</strong>, och begäran skickas via routrar fram till servern, som svarar</div>
+  <div><strong>DNS</strong> slår upp namnet till en <strong>IP-adress</strong>, och begäran skickas via Internet fram till servern, som svarar</div>
 </div>
 
 <!--
@@ -432,7 +432,7 @@ Nu kan vi gå tillbaka till den tomma webbläsaren och besvara båda frågorna.
 
 Varifrån kommer sidan? Från ett webbserverprogram, som väntar på begäranden och skickar svar, och som körs någonstans ute i nätverket av nätverk vi kallar Internet.
 
-Hur tar den sig till min webbläsare? Domännamnet slås upp av DNS till en IP-adress, webbläsaren skickar sin begäran dit, och meddelandet hittar fram genom en kedja av routrar tills det når servern, som svarar.
+Hur tar den sig till min webbläsare? Domännamnet slås upp av DNS till en IP-adress, webbläsaren skickar sin begäran dit, och meddelandet skickas via Internet till servern, som svarar.
 
 Det är där vi står nu. Webbläsaren vet vilken server den pratar med, och frågan har hittat fram.
 -->
@@ -455,7 +455,7 @@ Hur säkerställs att meddelandet verkligen kommer helt fram?
 </div>
 
 <!--
-"Skickas via routrar" döljer en hel del. Meddelanden delas i praktiken upp i mindre paket, som kan ta olika vägar genom näten och komma fram i fel ordning. Och servern kan köra flera program samtidigt, så meddelandet måste hitta rätt bland dem också.
+"Skickas via Internet" döljer en hel del. Meddelanden delas i praktiken upp i mindre paket, som skickas vidare av routrar och kan ta olika vägar genom näten och komma fram i fel ordning. Och servern kan köra flera program samtidigt, så meddelandet måste hitta rätt bland dem också.
 
 Hur det löses är film två, där vi går på djupet i TCP och IP.
 
