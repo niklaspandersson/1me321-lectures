@@ -1,0 +1,48 @@
+/*
+ * Globala stilar för decket. Slidev plockar upp style.css i projektroten.
+ */
+
+/*
+ * Frågan "Vad hände där emellan?" ligger under webbläsarrutan på bild 1 och
+ * är rubrik på bild 2. Båda elementen delar view-transition-name, så
+ * webbläsaren morfar det ena till det andra i stället för att tona bort det.
+ * Standardens 250 ms är för snabbt för att läsas som en rörelse på film.
+ */
+::view-transition-group(fragan) {
+  animation-duration: 560ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(fragan),
+::view-transition-new(fragan) {
+  animation-duration: 560ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*
+ * Decket kör view-transition genomgående (övergången måste sättas i
+ * headmattern för att gälla redan från bild 1). Standardkorsblandningen
+ * gäller alltså alla bildbyten – håll den kort, så att den bara ersätter
+ * den gamla fade-out:en och inte drar ut på varje klick.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+}
+
+/*
+ * Fallback för webbläsare utan View Transitions API (allt utom Chromium).
+ * Där faller Slidev tillbaka på en vanlig TransitionGroup med namnet
+ * "view-transition", som saknar klasser – utan de här blir bildbytena
+ * hårda klipp i stället för toningar. Morfningen går inte att rädda,
+ * men övergångarna blir i alla fall mjuka.
+ */
+.view-transition-enter-active,
+.view-transition-leave-active {
+  transition: opacity 320ms ease;
+}
+
+.view-transition-enter-from,
+.view-transition-leave-to {
+  opacity: 0;
+}

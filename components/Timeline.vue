@@ -28,10 +28,12 @@ const points = [
   margin: 2.4rem auto 1.2rem;
 }
 
+/* Linjen går från mitten av första punkten till mitten av den sista:
+   fyra lika breda kolumner ger 12,5 % in från vardera kanten. */
 .track {
   position: absolute;
-  left: 4%;
-  right: 4%;
+  left: 12.5%;
+  right: 12.5%;
   top: 0.42rem;
   height: 2px;
   background: #e2e8f0;

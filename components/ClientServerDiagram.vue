@@ -9,7 +9,7 @@ withDefaults(defineProps<{
 
 <template>
   <figure class="cs" aria-label="Webbläsaren skickar en begäran och webbservern skickar ett svar">
-    <div class="actor client" :class="{ lit: focus === 'roles' || focus === 'request' }">
+    <div class="actor client">
       <span class="icon" aria-hidden="true">🖥</span>
       <strong>Webbläsaren</strong>
       <span class="role">klient</span>
@@ -19,15 +19,15 @@ withDefaults(defineProps<{
     <div class="exchange">
       <div class="arrow request" :class="{ lit: focus === 'request' || focus === 'exchange' }">
         <span class="text">begäran: ge mig /kurser</span>
-        <span class="line" aria-hidden="true"><i /><b>▶</b></span>
+        <span class="line to-server" aria-hidden="true" />
       </div>
       <div class="arrow response" :class="{ lit: focus === 'response' || focus === 'exchange' }">
-        <span class="line back" aria-hidden="true"><b>◀</b><i /></span>
+        <span class="line to-client" aria-hidden="true" />
         <span class="text">svar: här är dokumentet</span>
       </div>
     </div>
 
-    <div class="actor server" :class="{ lit: focus === 'roles' || focus === 'response' }">
+    <div class="actor server">
       <span class="icon" aria-hidden="true">🗄</span>
       <strong>Webbservern</strong>
       <span class="role">server</span>
@@ -41,21 +41,22 @@ withDefaults(defineProps<{
   width: 46rem;
   max-width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
+  grid-template-columns: 1fr 1.6fr 1fr;
   align-items: center;
   gap: 1.2rem;
   margin: 2rem auto 1.2rem;
 }
 
+/* Rollerna har alltid sin egen färg – blått frågar, grönt svarar –
+   så att pilarnas färger går att läsa av mot dem. */
 .actor {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
   padding: 1rem 0.8rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid;
   border-radius: 0.7rem;
-  background: #fff;
   text-align: center;
 }
 
@@ -74,7 +75,6 @@ withDefaults(defineProps<{
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #94a3b8;
 }
 
 .does {
@@ -82,35 +82,36 @@ withDefaults(defineProps<{
   color: #64748b;
 }
 
-.client.lit {
+.client {
   border-color: #2563eb;
   background: #eff6ff;
 }
 
-.client.lit .role {
+.client .role {
   color: #2563eb;
 }
 
-.server.lit {
+.server {
   border-color: #059669;
   background: #ecfdf5;
 }
 
-.server.lit .role {
+.server .role {
   color: #059669;
 }
 
 .exchange {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
 .arrow {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  opacity: 0.35;
+  gap: 0.3rem;
+  opacity: 0.3;
+  transition: opacity 0.25s ease;
 }
 
 .arrow.lit {
@@ -127,22 +128,42 @@ withDefaults(defineProps<{
   text-align: center;
 }
 
+/* Skaftet är en linje och spetsen en CSS-triangel, i stället för ett
+   pilglyf som renderas olika i olika typsnitt. */
 .line {
-  display: flex;
-  align-items: center;
-  gap: 0.15rem;
-  color: #cbd5e1;
-  font-size: 0.7rem;
+  position: relative;
+  height: 2px;
+  background: #cbd5e1;
 }
 
-.line i {
-  flex: 1;
-  height: 2px;
-  background: currentColor;
+.line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+.line.to-server::after {
+  right: -1px;
+  transform: translateY(-50%);
+  border-left: 10px solid #cbd5e1;
+}
+
+.line.to-client::after {
+  left: -1px;
+  transform: translateY(-50%);
+  border-right: 10px solid #cbd5e1;
 }
 
 .request.lit .line {
-  color: #2563eb;
+  background: #2563eb;
+}
+
+.request.lit .line::after {
+  border-left-color: #2563eb;
 }
 
 .request.lit .text {
@@ -151,7 +172,11 @@ withDefaults(defineProps<{
 }
 
 .response.lit .line {
-  color: #059669;
+  background: #059669;
+}
+
+.response.lit .line::after {
+  border-right-color: #059669;
 }
 
 .response.lit .text {

@@ -16,16 +16,21 @@ withDefaults(defineProps<{
       </g>
 
       <g class="device">
-        <rect x="45" y="90" width="115" height="45" rx="9" />
-        <text x="102" y="118" text-anchor="middle">dator</text>
+        <rect x="45" y="76" width="115" height="38" rx="9" />
+        <text x="102" y="100" text-anchor="middle">dator</text>
       </g>
       <g class="device">
-        <rect x="45" y="155" width="115" height="45" rx="9" />
-        <text x="102" y="183" text-anchor="middle">mobil</text>
+        <rect x="45" y="126" width="115" height="38" rx="9" />
+        <text x="102" y="150" text-anchor="middle">mobil</text>
+      </g>
+      <g class="device">
+        <rect x="45" y="176" width="115" height="38" rx="9" />
+        <text x="102" y="200" text-anchor="middle">skrivare</text>
       </g>
 
-      <line class="wire" x1="160" y1="112" x2="255" y2="140" />
-      <line class="wire" x1="160" y1="178" x2="255" y2="150" />
+      <line class="wire" x1="160" y1="95" x2="255" y2="140" />
+      <line class="wire" x1="160" y1="145" x2="255" y2="145" />
+      <line class="wire" x1="160" y1="195" x2="255" y2="150" />
 
       <g :class="['router', { lit: focus === 'gateway' }]">
         <rect x="255" y="115" width="130" height="60" rx="10" />
@@ -36,7 +41,7 @@ withDefaults(defineProps<{
       <g :class="['out', { lit: focus === 'gateway' }]">
         <line x1="385" y1="145" x2="520" y2="145" />
         <polygon points="520,138 538,145 520,152" />
-        <text x="452" y="132" text-anchor="middle" class="sub">ut ur nätverket</text>
+        <text x="480" y="128" text-anchor="middle" class="sub">ut ur nätverket</text>
       </g>
 
       <g class="cloud">

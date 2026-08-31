@@ -4,11 +4,14 @@ withDefaults(defineProps<{
   active?: number
   /** Visa som stor punktlista i stället för kompakt rad. */
   list?: boolean
+  /** Hur många frågor i punktlistan som visas hittills (0 = ingen, 2 = båda). */
+  reveal?: number
   /** Markera alla frågor som besvarade. */
   done?: boolean
 }>(), {
   active: 0,
   list: false,
+  reveal: 2,
   done: false,
 })
 
@@ -20,7 +23,7 @@ const questions = [
 
 <template>
   <ol v-if="list" class="trail-list">
-    <li v-for="(q, i) in questions" :key="q.short">
+    <li v-for="(q, i) in questions" :key="q.short" :class="{ pending: i >= reveal }">
       <span class="num">{{ i + 1 }}</span>
       <span class="text">{{ q.long }}</span>
     </li>
@@ -110,6 +113,14 @@ const questions = [
   gap: 0.9rem;
   font-size: 1.25rem;
   color: #0f172a;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Frågorna avslöjas en i taget, men platsen är reserverad så att
+   listan inte hoppar när nästa fråga dyker upp. */
+.trail-list li.pending {
+  opacity: 0;
+  transform: translateY(0.35rem);
 }
 
 .trail-list .num {

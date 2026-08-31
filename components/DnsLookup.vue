@@ -18,7 +18,7 @@ withDefaults(defineProps<{
     <div class="step">
       <span class="q">Vilken IP-adress hör till namnet?</span>
       <span class="chip">DNS</span>
-      <span class="flow" aria-hidden="true"><i /><b>▶</b></span>
+      <span class="flow" aria-hidden="true" />
     </div>
 
     <div class="box ip" :class="{ lit: answered }">
@@ -104,18 +104,25 @@ withDefaults(defineProps<{
   letter-spacing: 0.06em;
 }
 
+/* Skaftet är en linje och spetsen en CSS-triangel, i stället för ett
+   pilglyf som renderas olika i olika typsnitt. */
 .flow {
-  display: flex;
-  align-items: center;
+  position: relative;
   align-self: stretch;
-  gap: 0.15rem;
-  color: #cbd5e1;
-  font-size: 0.7rem;
+  height: 2px;
+  background: #cbd5e1;
 }
 
-.flow i {
-  flex: 1;
-  height: 2px;
-  background: currentColor;
+.flow::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #cbd5e1;
 }
 </style>

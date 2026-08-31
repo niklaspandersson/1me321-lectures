@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build": "slidev build F1a.md",
-    "dev": "slidev --open F1a.md",
+    "build:f1b": "slidev build F1b.md",
+    "dev": "slidev --open F1a.md --remote",
+    "dev:f1b": "slidev --open F1b.md --remote",
     "export": "slidev export"
   },
   "dependencies": {
