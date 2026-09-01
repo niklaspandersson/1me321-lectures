@@ -1,15 +1,18 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
+  /** Visa förklaringen under adressen (delarnas namn). */
+  legend?: boolean
   /** Vilken del av webbadressen som ska lyftas fram. */
   highlight?: '' | 'protocol' | 'domain' | 'path'
 }>(), {
+  legend: false,
   highlight: '',
 })
 
 const parts = [
   { key: 'protocol', text: 'https://', label: 'protokoll', note: 'hur vi frågar' },
-  { key: 'domain', text: 'www.lnu.se', label: 'domännamn', note: 'vem vi frågar' },
-  { key: 'path', text: '/kurser', label: 'sökväg', note: 'vad vi vill ha' },
+  { key: 'domain', text: 'lnu.se', label: 'domännamn', note: 'vem vi frågar' },
+  { key: 'path', text: '/student', label: 'sökväg', note: 'vad vi vill ha' },
 ]
 </script>
 
@@ -23,9 +26,11 @@ const parts = [
         :class="{ dim: highlight && highlight !== part.key, lit: highlight === part.key }"
       >
         <span class="text">{{ part.text }}</span>
-        <span class="tick" aria-hidden="true" />
-        <span class="label">{{ part.label }}</span>
-        <span class="note">{{ part.note }}</span>
+        <span class="legend" :class="{ shown: legend }" :aria-hidden="!legend">
+          <span class="tick" aria-hidden="true" />
+          <span class="label">{{ part.label }}</span>
+          <span class="note">{{ part.note }}</span>
+        </span>
       </div>
     </div>
   </figure>
@@ -49,7 +54,6 @@ const parts = [
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
   padding: 0 0.2rem;
   transition: opacity 0.2s ease;
 }
@@ -60,6 +64,24 @@ const parts = [
   color: #0f172a;
   padding: 0.15rem 0.35rem;
   border-radius: 0.35rem;
+}
+
+/* Förklaringen tar plats direkt, men syns först vid rätt klick. */
+.legend {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding-top: 0.3rem;
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.legend.shown {
+  opacity: 1;
+  transform: none;
 }
 
 .tick {

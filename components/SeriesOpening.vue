@@ -20,9 +20,9 @@ const films = [
 
 <template>
   <div class="opening">
-    <BrowserFrame url="https://lnu.se" mock="site" height="11rem" />
+    <BrowserFrame url="https://lnu.se/student" mock="./assets/lnu-student.jpeg" height="11rem" />
 
-    <p class="question">Vad händer när vi surfar till en webbsida?</p>
+    <p class="question">Att öppna en webbsida</p>
 
     <nav class="series" aria-label="Seriens tre filmer">
       <span

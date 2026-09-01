@@ -1,11 +1,16 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
+import { computed } from 'vue'
+
+const props = withDefaults(defineProps<{
   /** Text i adressfältet. Tomt fält om den utelämnas. */
   url?: string
   /** Visa blinkande markör i adressfältet. */
   caret?: boolean
-  /** Innehåll i webbläsarens visningsyta. */
-  mock?: '' | 'site' | 'simple'
+  /**
+   * Innehåll i webbläsarens visningsyta: en inbyggd attrapp ('site' | 'simple')
+   * eller en relativ sökväg till en bild, t.ex. './assets/lnu-student.jpeg'.
+   */
+  mock?: string
   /** Höjd på visningsytan. */
   height?: string
   /** Bildtext under webbläsaren. */
@@ -19,6 +24,24 @@ withDefaults(defineProps<{
   height: '13rem',
   caption: '',
   small: false,
+})
+
+// Vite kan bara bunta filer den ser vid bygget, så alla bilder under assets/
+// slås upp i förväg och matchas mot sökvägen som skickas in via `mock`.
+const assets = import.meta.glob('../assets/**/*.{png,jpg,jpeg,gif,webp,avif,svg}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>
+
+/** Sökvägen normaliseras mot projektroten: './assets/x.jpg' → '../assets/x.jpg'. */
+const image = computed(() => {
+  const path = props.mock
+  if (!path || path === 'site' || path === 'simple') return ''
+  const key = '../' + path.replace(/^\.?\//, '')
+  const url = assets[key]
+  if (!url) console.warn(`[BrowserFrame] hittar ingen bild för mock="${path}"`)
+  return url ?? ''
 })
 </script>
 
@@ -50,6 +73,8 @@ withDefaults(defineProps<{
         <h3>Min första webbsida</h3>
         <p>Det här är innehållet som du själv har skrivit.</p>
       </div>
+
+      <img v-else-if="image" class="shot" :src="image" alt="" />
 
       <slot v-else />
     </div>
@@ -134,6 +159,14 @@ withDefaults(defineProps<{
   height: var(--viewport-height);
   overflow: hidden;
   background: #fff;
+}
+
+.shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .page {

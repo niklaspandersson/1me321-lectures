@@ -1,29 +1,32 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  /** Visa svaret från DNS. */
-  answered?: boolean
+  /** 0 = namnet och adressen, 1 = uppslagningen mellan dem. */
+  step?: number
 }>(), {
-  answered: false,
+  step: 1,
 })
 </script>
 
 <template>
   <figure class="dns" aria-label="DNS översätter ett domännamn till en IP-adress">
     <div class="box name">
-      <span class="cap">det du skrev</span>
-      <code>www.lnu.se</code>
+      <span class="cap">det vi skrev</span>
+      <code>lnu.se</code>
       <span class="who">ett namn för människor</span>
     </div>
 
-    <div class="step">
+    <!-- Själva uppslagningen kommer först i steg 1: bilden börjar med de två
+         formerna, och frågan om hur man tar sig från den ena till den andra. -->
+    <div class="step" :class="{ pending: step < 1 }">
       <span class="q">Vilken IP-adress hör till namnet?</span>
+      <span class="flow ask" aria-hidden="true" />
       <span class="chip">DNS</span>
-      <span class="flow" aria-hidden="true" />
+      <span class="flow answer" aria-hidden="true" />
     </div>
 
-    <div class="box ip" :class="{ lit: answered }">
+    <div class="box ip">
       <span class="cap">det nätverket behöver</span>
-      <code>203.0.113.42</code>
+      <code class="addr">203.0.113.42</code>
       <span class="who">en adress för datorer</span>
     </div>
   </figure>
@@ -38,6 +41,10 @@ withDefaults(defineProps<{
   align-items: center;
   gap: 0.9rem;
   margin: 2.1rem auto 1.3rem;
+}
+
+.pending {
+  opacity: 0;
 }
 
 .box {
@@ -58,6 +65,13 @@ withDefaults(defineProps<{
   color: #0f172a;
 }
 
+/* Samma gröna som servern har i InternetBox: adressen är serverns, inte
+   lådans, så det är siffrorna som färgas och inte hela rutan. Selektorn
+   måste vara lika specifik som .box code ovan för att vinna över den. */
+.box code.addr {
+  color: #047857;
+}
+
 .cap {
   font-size: 0.68rem;
   font-weight: 700;
@@ -76,16 +90,12 @@ withDefaults(defineProps<{
   background: #eff6ff;
 }
 
-.ip.lit {
-  border-color: #059669;
-  background: #ecfdf5;
-}
-
 .step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
+  transition: opacity 0.25s ease;
 }
 
 .q {
@@ -105,24 +115,33 @@ withDefaults(defineProps<{
 }
 
 /* Skaftet är en linje och spetsen en CSS-triangel, i stället för ett
-   pilglyf som renderas olika i olika typsnitt. */
+   pilglyf som renderas olika i olika typsnitt. Frågan går ut åt höger
+   ovanför chippet, svaret tillbaka åt vänster nedanför det. */
 .flow {
   position: relative;
   align-self: stretch;
   height: 2px;
-  background: #cbd5e1;
+  background: #8a8a8a;
 }
 
 .flow::after {
   content: '';
   position: absolute;
-  right: -1px;
   top: 50%;
   transform: translateY(-50%);
   width: 0;
   height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 10px solid #cbd5e1;
+}
+
+.ask::after {
+  right: -1px;
+  border-left: 10px solid #8a8a8a;
+}
+
+.answer::after {
+  left: -1px;
+  border-right: 10px solid #8a8a8a;
 }
 </style>
